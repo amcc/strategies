@@ -1,6 +1,12 @@
 let hue = 0;
 let currentText;
 
+// info and download buttons
+let closeButton;
+let infoHtml;
+let initialInfoButtonHtml;
+let hideInfoHtml = true;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -15,6 +21,13 @@ function setup() {
 
   currentText = random(strategies);
   noLoop();
+
+  // info buttons
+  info = select("#info");
+  infoHtml = select("#info-inner");
+  closeButton = select("#close-button");
+  initialInfoButtonHtml = closeButton.html();
+  console.log("initialDownloadHtml", initialInfoButtonHtml);
 }
 
 function draw() {
@@ -36,6 +49,22 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   setUpStrategies();
 }
+
+const hideInfo = () => {
+  if (hideInfoHtml) {
+    info.addClass("open");
+    infoHtml.removeClass("hidden");
+    closeButton.html("&darr; close");
+  } else {
+    info.removeClass("open");
+    infoHtml.addClass("hidden");
+    closeButton.html(initialInfoButtonHtml);
+  }
+  hideInfoHtml = !hideInfoHtml;
+};
+
+// html stuff
+document.getElementById("close-button").addEventListener("click", hideInfo);
 
 const strategies = [
   "Abandon normal instruments",
