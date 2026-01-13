@@ -62,7 +62,7 @@ const hideInfo = () => {
   if (hideInfoHtml) {
     info.addClass("open");
     infoHtml.removeClass("hidden");
-    closeButton.html("&darr; close");
+    closeButton.html("-");
   } else {
     info.removeClass("open");
     infoHtml.addClass("hidden");
