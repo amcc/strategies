@@ -18,6 +18,10 @@ canvas {
 a {
   color: black;
 }
+em {
+  font-style: normal;
+  font-weight: 200;
+}
 
 button {
   font-size: 100%;
@@ -50,14 +54,15 @@ button {
 #strategy {
   height: 100vh;
   height: 100svh;
-  padding: 10vw;
+  padding: 15vw;
   /* Aim for ~6 words per line at full width (10vw padding each side).
      Compute font-size so ~36 characters fit into the available width (100vw - 20vw).
      The middle value scales with viewport: (100vw - 20vw) / 36 = 80vw / 36. */
-  font-size: clamp(18px, calc((100vw - 20vw) / 20), 200px);
+  font-size: clamp(24px, calc((100vw - 20vw) / 27), 140px);
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  user-select: none;
 }
 
 @media only screen and (min-width: 400px) {
