@@ -5,6 +5,7 @@ let currentText;
 let closeButton;
 let infoHtml;
 let initialInfoButtonHtml;
+let strategy;
 let hideInfoHtml = true;
 
 function setup() {
@@ -26,17 +27,24 @@ function setup() {
   info = select("#info");
   infoHtml = select("#info-inner");
   closeButton = select("#close-button");
+  strategy = select("#strategy");
+
   initialInfoButtonHtml = closeButton.html();
+
   console.log("initialDownloadHtml", initialInfoButtonHtml);
 }
 
 function draw() {
-  background(hue, 100, 70);
-  text(currentText, width / 2, height / 2, width - width / 10);
+  // background(hue, 100, 70);
+  // background(255);
+  // fill(0);
+  // textAlign(LEFT);
+  // text(currentText, width / 2, height / 2, width - width / 10);
 }
 
 function mouseReleased() {
   currentText = random(strategies);
+  strategy.html(currentText);
   hue += 5;
   if (hue > 360) hue = 0;
   redraw();

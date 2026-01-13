@@ -1,8 +1,16 @@
+/* Make box sizing include padding and border in element size */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
+  /* cursor: pointer; */
 }
 canvas {
   display: block;
@@ -32,11 +40,24 @@ button {
   max-width: 100vw;
 }
 .open {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 #info-inner {
   padding-bottom: 1rem;
+}
+
+#strategy {
+  height: 100vh;
+  height: 100svh;
+  padding: 10vw;
+  /* Aim for ~6 words per line at full width (10vw padding each side).
+     Compute font-size so ~36 characters fit into the available width (100vw - 20vw).
+     The middle value scales with viewport: (100vw - 20vw) / 36 = 80vw / 36. */
+  font-size: clamp(18px, calc((100vw - 20vw) / 20), 200px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 @media only screen and (min-width: 400px) {
@@ -59,7 +80,7 @@ button {
   border: 2px solid transparent;
   padding: 5px 0;
   text-decoration: underline;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 .open #close-button {
   color: black;
