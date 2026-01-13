@@ -1,6 +1,9 @@
 let hue = 0;
 let currentText;
 
+// prevent double-tap zoom on iOS Safari
+let _lastTouch = 0;
+
 // info and download buttons
 let closeButton;
 let infoHtml;
@@ -32,6 +35,13 @@ function setup() {
   initialInfoButtonHtml = closeButton.html();
 
   console.log("initialDownloadHtml", initialInfoButtonHtml);
+
+  // use p5 event handling for the close button
+  if (closeButton && typeof closeButton.mousePressed === "function") {
+    closeButton.mousePressed(hideInfo);
+  }
+
+  // Touch handling moved to p5's `touchEnded` below so p5 manages event timing.
 }
 
 function draw() {
@@ -58,6 +68,18 @@ function windowResized() {
   setUpStrategies();
 }
 
+// Use p5's touchEnded to intercept quick consecutive taps and prevent
+// iOS Safari double-tap zoom while preserving single taps.
+function touchEnded(event) {
+  const now = Date.now();
+  if (now - _lastTouch <= 300) {
+    if (event && typeof event.preventDefault === "function") {
+      event.preventDefault();
+    }
+  }
+  _lastTouch = now;
+}
+
 const hideInfo = () => {
   if (hideInfoHtml) {
     info.addClass("open");
@@ -71,8 +93,7 @@ const hideInfo = () => {
   hideInfoHtml = !hideInfoHtml;
 };
 
-// html stuff
-document.getElementById("close-button").addEventListener("click", hideInfo);
+// html stuff handled via p5 `mousePressed` on `closeButton` in setup()
 
 const strategies = [
   "Abandon normal instruments",
