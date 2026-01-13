@@ -1,4 +1,4 @@
-/* Make box sizing include padding and border in element size */
+/* Make box sizing include padding and border in element size.  */
 *,
 *::before,
 *::after {
