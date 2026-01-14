@@ -52,7 +52,16 @@ function draw() {
   // text(currentText, width / 2, height / 2, width - width / 10);
 }
 
-function mouseReleased() {
+function mouseReleased(event) {
+  const now = Date.now();
+  if (now - _lastTouch <= 400) {
+    console.log("preventing double-tap zoom");
+    if (event && typeof event.preventDefault === "function") {
+      event.preventDefault();
+    }
+  }
+  _lastTouch = now;
+
   currentText = random(strategies);
   strategy.html(currentText);
   hue += 5;
@@ -66,18 +75,6 @@ function setUpStrategies() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   setUpStrategies();
-}
-
-// Use p5's touchEnded to intercept quick consecutive taps and prevent
-// iOS Safari double-tap zoom while preserving single taps.
-function touchEnded(event) {
-  const now = Date.now();
-  if (now - _lastTouch <= 300) {
-    if (event && typeof event.preventDefault === "function") {
-      event.preventDefault();
-    }
-  }
-  _lastTouch = now;
 }
 
 const hideInfo = () => {

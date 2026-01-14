@@ -10,7 +10,14 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
+  background-color: #000;
+  /* color: #fff; */
+  /* ensure content sits inside iOS safe areas so top/bottom blend with black UI */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
   /* cursor: pointer; */
+  touch-action: manipulation;
+  overscroll-behavior: none;
 }
 canvas {
   display: none;
@@ -62,6 +69,7 @@ button {
 
 #strategy-container {
   height: 100vh;
+  height: 100svh;
   width: 100vw;
   overflow: hidden;
   background-color: black;
